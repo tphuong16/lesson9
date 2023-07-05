@@ -1,0 +1,313 @@
+<?php
+echo "Bài 2 ";
+class Point2D {
+  private $x;
+  private $y;
+
+  public function __construct($x, $y) {
+    $this->x = $x;
+    $this->y = $y;
+  }
+
+  public function calculateDistance(Point2D $point) {
+    $distanceX = $point->x - $this->x;
+    $distanceY = $point->y - $this->y;
+    $distance = sqrt($distanceX ** 2 + $distanceY ** 2);
+    return $distance;
+  }
+}
+
+// Tạo đối tượng điểm p1 có tọa độ (1, 3)
+$p1 = new Point2D(2, 3);
+
+// Tạo đối tượng điểm p2 có tọa độ (2, 7)
+$p2 = new Point2D(5, 1);
+// Tính khoảng cách từ điểm p1 tới điểm p2
+
+$distance = $p1->calculateDistance($p2);
+
+// In ra kết quả
+echo "The distance from point p1 to point p2 is: " . $distance;
+echo "<br>";
+
+echo "Bài 3 ";
+echo "<br>";
+class IntegerArray {
+  private $array;
+
+  public function __construct($array) {
+      $this->array = $array;
+  }
+
+  public function getSum() {
+      return array_sum($this->array);
+  }
+
+  public function getAverage() {
+      $count = count($this->array);
+
+      if ($count > 0) {
+          $sum = array_sum($this->array);
+          $average = $sum / $count;
+          return $average;
+      } else {
+          return 0;
+      }
+  }
+
+  public function getMaxElement() {
+      return max($this->array);
+  }
+}
+$numbers = new IntegerArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+echo "Sum: " . $numbers->getSum() . "\n";
+echo "Average: " . $numbers->getAverage() . "\n";
+echo "Max Element: " . $numbers->getMaxElement() . "\n";
+echo "<br>";
+echo "Bài 4 ";
+echo "<br>";
+class Clock{
+  protected $hour, $minute, $second;
+  public function __construct($hour, $minute, $second){
+      $this->hour = $hour;
+      $this->minute = $minute;
+      $this->second = $second;
+  }
+  public function show(){
+      echo sprintf("%02d", $this->hour) . ":" .sprintf("%02d",$this->minute) . ":" . sprintf("%02d",$this->second);
+  }
+  public function plusSecond(){
+      $this->second++;
+      if($this->second >= 60){
+          $this->minute++;
+          $this->second = 0;
+          if($this->minute >= 60){
+              $this->hour++;
+              $this->minute = 0;
+              if($this->hour >= 24){
+                  $this->hour = 0;
+              }
+          }
+      }
+  }
+}
+
+echo "Current time ";
+$clock = new Clock(4,55,12);
+$clock->show();
+echo "<br>Next second: ";
+$clock->plusSecond();
+$clock->show();
+echo "<br>";
+
+echo "Bài 5 ";
+echo "<br>";
+class Student {
+  private $studentId;
+  private $fullName;
+
+  public function __construct($studentId, $fullName) {
+      $this->studentId = $studentId;
+      $this->fullName = $fullName;
+  }
+
+  public function getStudentId() {
+      return $this->studentId;
+  }
+
+  public function getFullName() {
+      return $this->fullName;
+  }
+}
+
+$studentId = 1;
+$fullName = ("Phạm Thu Phương");
+$less5 = new Student($studentId, $fullName);
+echo "ID: ". $less5->getStudentId(). "/ Full name: ". $less5->getFullName(). "<br>";
+
+echo "Bài 6 ";
+class Car {
+  private $carCompany;
+  private $color;
+  private $yearManufacture;
+  
+  public function __construct($carCompany, $color, $yearManufacture) {
+      $this->carCompany = $carCompany;
+      $this->color = $color;
+      $this->yearManufacture = $yearManufacture;
+  }
+  
+  public function displayInformation() {
+      echo "CarCompany: " . $this->carCompany . "<br>";
+      echo "Color: " . $this->color . "<br>";
+      echo "Year of Manufacture: " . $this->yearManufacture . "<br>";
+  }
+  }
+  
+  $carCompany = "Mercedes";
+  $color = "Black";
+  $yearManufacture = 1998;
+  
+  $car = new Car($carCompany, $color, $yearManufacture);
+  $car->displayInformation();
+
+  echo "Bài 7 ";
+  echo "<br>";
+
+  class Fraction {
+    private $numerator1;
+    private $denominator1;
+    private $numerator2;
+    private $denominator2;
+    
+    public function __construct($numerator1, $denominator1, $numerator2, $denominator2) {
+        $this->numerator1 = $numerator1;
+        $this->denominator1 = $denominator1;
+        $this->numerator2 = $numerator2;
+        $this->denominator2 = $denominator2;
+    }
+    
+    private function simplifyFraction($numerator, $denominator) {
+        $gcd = $this->findGCD($numerator, $denominator);
+        $simplifiedNumerator = $numerator / $gcd;
+        $simplifiedDenominator = $denominator / $gcd;
+        return $simplifiedNumerator . "/" . $simplifiedDenominator;
+    }
+    
+    private function findGCD($a, $b) {
+        $a = abs($a);
+        $b = abs($b);
+        while ($b != 0) {
+            $temp = $b;
+            $b = $a % $b;
+            $a = $temp;
+        }
+        return $a;
+    }
+    
+    public function add() {
+        $resultNumerator = ($this->numerator1 * $this->denominator2) + ($this->numerator2 * $this->denominator1);
+        $resultDenominator = $this->denominator1 * $this->denominator2;
+        return $this->simplifyFraction($resultNumerator, $resultDenominator);
+    }
+    
+    public function subtract() {
+        $resultNumerator = ($this->numerator1 * $this->denominator2) - ($this->numerator2 * $this->denominator1);
+        $resultDenominator = $this->denominator1 * $this->denominator2;
+        return $this->simplifyFraction($resultNumerator, $resultDenominator);
+    }
+    
+    public function multiply() {
+        $resultNumerator = $this->numerator1 * $this->numerator2;
+        $resultDenominator = $this->denominator1 * $this->denominator2;
+        return $this->simplifyFraction($resultNumerator, $resultDenominator);
+    }
+    
+    public function divide() {
+        $resultNumerator = $this->numerator1 * $this->denominator2;
+        $resultDenominator = $this->denominator1 * $this->numerator2;
+        return $this->simplifyFraction($resultNumerator, $resultDenominator);
+    }
+    }
+    
+    $numerator1 = 1;
+    $denominator1 = 5;
+    $numerator2 = 2;
+    $denominator2 = 3;
+    
+    $less7 = new Fraction($numerator1, $denominator1, $numerator2, $denominator2);
+    echo "Add is: " . $less7->add() . "<br>";
+    echo "Subtract is: " . $less7->subtract() . "<br>";
+    echo "Multiply is: " . $less7->multiply() . "<br>";
+    echo "Divide is: " . $less7->divide() . "<br>";
+
+
+ echo "Bài 8 ";
+ echo "<br>";
+ class Person {
+  private $name;
+  private $age;
+  private $address;
+  
+  public function __construct($name, $age, $address) {
+      $this->name = $name;
+      $this->age = $age;
+      $this->address = $address;
+  }
+  
+  public function displayInfo() {
+      echo "Name: " . $this->name . "<br>";
+      echo "Age: " . $this->age . "<br>";
+      echo "Address: " . $this->address . "<br>";
+  }
+  }
+  
+  $name = "Phương";
+  $age = 20;
+  $address = "Thanh Xuân";
+  
+  $person = new Person($name, $age, $address);
+  echo "Person information is: ";
+  echo "<br>";
+  $person->displayInfo();
+
+  echo "Bài 9 ";
+  echo "<br>";
+  
+class Product {
+  protected $name;
+  protected $price;
+  protected $description;
+  
+  public function __construct($name, $price, $description) {
+      $this->name = $name;
+      $this->price = $price;
+      $this->description = $description;
+  }
+  
+  public function getName() {
+      return $this->name;
+  }
+  
+  public function getPrice() {
+      return $this->price;
+  }
+  
+  public function getDescription() {
+      return $this->description;
+  }
+  }
+  
+  $product = new Product("Car", 3000, "Black");
+  echo "Product Name: " . $product->getName() . "<br>";
+  echo "Price: " . $product->getPrice() . "<br>";
+  echo "Description: " . $product->getDescription();
+
+  echo "<br>";
+  echo "Bài 10 ";
+  echo "<br>";
+class HotelBooking {
+  private $name;
+  private $checkInDate;
+  private $numberOfNights;
+  
+  public function __construct($name, $checkInDate, $numberOfNights) {
+      $this->name = $name;
+      $this->checkInDate = $checkInDate;
+      $this->numberOfNights = $numberOfNights;
+  }
+  
+  public function calculateTotalAmount($roomPrice) {
+      return $roomPrice * $this->numberOfNights;
+  }
+  }
+  $name = "1612";
+  $checkInDate = "2023-07-05";
+  $numberOfNights = 5;
+  $booking = new HotelBooking($name, $checkInDate, $numberOfNights);
+  $totalAmount = $booking->calculateTotalAmount(1000);
+  
+  echo "Total: $" . $totalAmount;
+
+?>
